@@ -90,19 +90,20 @@ class _HomeMenuScreenState extends State<HomeMenuScreen>
           onTap: onClose,
           child: Container(color: Colors.black54),
         ),
-        Positioned(
-          top: 80,
-          left: 16,
-          right: 16,
-          child: Material(
-            elevation: 4,
-            borderRadius: BorderRadius.circular(8),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildSearchField(controller, onChanged),
-                _buildSearchListItems(searchResults),
-              ],
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 80, 16, 16),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Material(
+              elevation: 4,
+              borderRadius: BorderRadius.circular(8),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildSearchField(controller, onChanged),
+                  _buildSearchListItems(searchResults),
+                ],
+              ),
             ),
           ),
         ),

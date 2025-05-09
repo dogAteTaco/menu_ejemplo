@@ -22,6 +22,7 @@ class TemplateScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: header,
+      resizeToAvoidBottomInset: false,
       body:
           isDetailScreen
               ? _detailScreen(context, body)
@@ -37,13 +38,15 @@ class TemplateScreen extends StatelessWidget {
         child: headerWidgetText,
       ),
       SizedBox(height: 55.0),
-      Container(
-        height: MediaQuery.of(context).size.height * 0.737,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(80.0)),
+      Expanded(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.737,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(80.0)),
+          ),
+          child: body,
         ),
-        child: body,
       ),
     ],
   );

@@ -58,6 +58,14 @@ flutter:
     - assets/images/plates/plate4.png
     - assets/images/plates/plate5.png
     - assets/images/plates/plate6.png
+    - assets/images/plates/plate7.png
+    - assets/images/plates/plate8.png
+    - assets/images/plates/plate9.png
+    - assets/images/plates/plate10.png
+    - assets/images/plates/plate11.png
+    - assets/images/plates/plate12.png
+    - assets/images/plates/plate13.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see

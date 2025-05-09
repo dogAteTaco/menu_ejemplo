@@ -1,3 +1,4 @@
+import 'package:example_menu/domain/models/food.dart';
 import 'package:example_menu/infrastructure/datasource/foods.dart';
 import 'package:example_menu/presentations/provider/cart_provider.dart';
 import 'package:example_menu/presentations/widgets/build_cart_item.dart';
@@ -31,33 +32,41 @@ class _CartScreenState extends State<CartScreen> with Header, CustomText {
       isDetailScreen: true,
       body: Column(
         children: [
-          Expanded(
-            child: ListView(
-              primary: false,
-              padding: EdgeInsets.only(left: 25.0, right: 20.0),
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 45.0),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.58,
-                    child: ListView.builder(
-                      itemCount: cartProvider.cartItems.length,
-                      itemBuilder: (context, index) {
-                        int foodIndex = foodList.indexWhere(
-                          (food) => food.id == cartProvider.cartItems[index].id,
-                        );
-                        return BuildCartItem(
-                          food: foodList[foodIndex],
-                          quantity: cartProvider.cartItems[index].quantity,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
+          _buildItemList(context, cartProvider, foodList),
+          _buildTotalPrice(),
+        ],
+      ),
+    );
+  }
+
+  Expanded _buildItemList(
+    BuildContext context,
+    CartProvider cartProvider,
+    List<Food> foodList,
+  ) {
+    return Expanded(
+      child: ListView(
+        primary: false,
+        padding: EdgeInsets.only(left: 25.0, right: 20.0),
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 45.0),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.58,
+              child: ListView.builder(
+                itemCount: cartProvider.cartItems.length,
+                itemBuilder: (context, index) {
+                  int foodIndex = foodList.indexWhere(
+                    (food) => food.id == cartProvider.cartItems[index].id,
+                  );
+                  return BuildCartItem(
+                    food: foodList[foodIndex],
+                    quantity: cartProvider.cartItems[index].quantity,
+                  );
+                },
+              ),
             ),
           ),
-          _buildTotalPrice(),
         ],
       ),
     );
@@ -73,9 +82,10 @@ class _CartScreenState extends State<CartScreen> with Header, CustomText {
           child: Text(
             'Total: ${formatAsCurrency(cartProvider.getCartTotal())}',
             style: const TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontFamily: 'Montserrat',
               fontSize: 20.0,
+              fontWeight: FontWeight.w900
             ),
           ),
         ),

@@ -26,7 +26,7 @@ class CartProvider with ChangeNotifier {
       throw Exception('Product not found in the cart');
     }
   }
-  
+
   void addToCart(int id, {int quantity = 1}) {
     // Busca el índice del producto en el carrito
     final index = _cartItems.indexWhere((item) => item.id == id);
@@ -66,7 +66,7 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  // New method to calculate subtotal for each cart item
+  // Calcula el subtotal de un producto en el carrito
   double getCartItemSubtotal(CartItem item) {
     final index = Foods.foods.indexWhere((food) => food.id == item.id);
     // Si el producto esta en la lista de alimentos

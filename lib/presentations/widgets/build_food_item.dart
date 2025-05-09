@@ -38,7 +38,7 @@ class BuildFoodItem extends StatelessWidget with FoodText {
               SizedBox(width: 20.0),
               getFoodInformation(),
               IconButton(onPressed: () {
-                cartProvider.addToCart(food.id, 1);
+                cartProvider.addToCart(food.id);
               }, icon: Icon(Icons.add)),
             ],
           ),

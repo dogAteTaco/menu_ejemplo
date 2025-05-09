@@ -15,7 +15,19 @@ class CartProvider with ChangeNotifier {
     return count;
   }
 
-  void addToCart(int id, int quantity) {
+  CartItem getCartItemById(int id) {
+    // Busca el índice del producto en el carrito
+    final index = _cartItems.indexWhere((item) => item.id == id);
+    // Si el producto está en el carrito, lo devuelve
+    if (index >= 0) {
+      return _cartItems[index];
+    } else {
+      // Si el producto no está en el carrito, lanza una excepción
+      throw Exception('Product not found in the cart');
+    }
+  }
+  
+  void addToCart(int id, {int quantity = 1}) {
     // Busca el índice del producto en el carrito
     final index = _cartItems.indexWhere((item) => item.id == id);
     // Si el producto ya está en el carrito, actualiza la cantidad
@@ -37,6 +49,20 @@ class CartProvider with ChangeNotifier {
     if (index >= 0) {
       _cartItems.removeAt(index);
       notifyListeners();
+    }
+  }
+
+  void decreaseQuantitybyId(int id,{int quantity = 1}) {
+    // Busca el índice del producto en el carrito
+    final index = _cartItems.indexWhere((item) => item.id == id);
+    // Si el producto está en el carrito y su cantidad es mayor a 1, disminuye la cantidad
+    if (index >= 0 && _cartItems[index].quantity > 1) {
+      _cartItems[index] = _cartItems[index].copyWith(
+        quantity: _cartItems[index].quantity - quantity,
+      );
+      notifyListeners();
+    } else if (index >= 0 && _cartItems[index].quantity == 1) {
+      removeFromCart(id);
     }
   }
 

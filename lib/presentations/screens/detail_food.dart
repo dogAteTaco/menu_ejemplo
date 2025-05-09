@@ -5,6 +5,7 @@ import 'package:example_menu/presentations/provider/select_card_provider.dart';
 import 'package:example_menu/presentations/widgets/build_info_card.dart';
 import 'package:example_menu/presentations/widgets/custom_text.dart';
 import 'package:example_menu/presentations/widgets/header.dart';
+import 'package:example_menu/presentations/widgets/quantity_button.dart';
 import 'package:example_menu/presentations/widgets/template_screen.dart';
 import 'package:example_menu/utils/string_formatter.dart';
 import 'package:flutter/material.dart';
@@ -170,7 +171,7 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
       width: double.infinity,
       child: TextButton(
         onPressed: () {
-          cartProvider.addToCart(widget.food.id, pricesForQuantity.quantity);
+          cartProvider.addToCart(widget.food.id, quantity:  pricesForQuantity.quantity);
         },
         style: TextButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 76, 121, 235),
@@ -188,7 +189,6 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
             )),
       ),
     );
-
   }
   /// Construye el nombre del alimento.
   Widget _buildFoodName() {
@@ -229,7 +229,7 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildQuantityButton(
+          buildQuantityButton(
             icon: Icons.remove,
             color: const Color(0xFF7A9BEE),
             onTap: pricesForQuantity.removeQuantity,
@@ -239,7 +239,7 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
             fontSize: 15,
             colorText: Colors.white,
           ),
-          _buildQuantityButton(
+          buildQuantityButton(
             icon: Icons.add,
             color: Colors.white,
             iconColor: const Color(0xFF7A9BEE),
@@ -250,28 +250,7 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
     );
   }
 
-  /// Construye un botón para ajustar la cantidad.
-  Widget _buildQuantityButton({
-    required IconData icon,
-    required Color color,
-    Color? iconColor,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 25.0,
-        width: 25.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7.0),
-          color: color,
-        ),
-        child: Center(
-          child: Icon(icon, color: iconColor ?? Colors.white, size: 20.0),
-        ),
-      ),
-    );
-  }
+  
 
   /// Construye las tarjetas de información del alimento.
   Widget _buildInfoCards() {

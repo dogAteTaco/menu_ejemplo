@@ -1,10 +1,12 @@
 import 'package:example_menu/infrastructure/datasource/foods.dart';
+import 'package:example_menu/presentations/provider/cart_provider.dart';
 import 'package:example_menu/presentations/widgets/botton_search.dart';
 import 'package:example_menu/presentations/widgets/build_food_item.dart';
 import 'package:example_menu/presentations/widgets/custom_text.dart';
 import 'package:example_menu/presentations/widgets/header.dart';
-import 'package:example_menu/presentations/widgets/tamplate_screens.dart';
+import 'package:example_menu/presentations/widgets/template_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeMenuScreen extends StatefulWidget {
   const HomeMenuScreen({super.key});
@@ -18,9 +20,11 @@ class _HomeMenuScreenState extends State<HomeMenuScreen>
   @override
   Widget build(BuildContext context) {
     final foodList = Foods.foods;
-    return TamplateScreens(
+    final cartProvider = context.watch<CartProvider>();
+
+    return TemplateScreen(
       backgroundColor: Color(0xFF21BFBD),
-      header: getHeader(),
+      header: getHeader(itemCount: cartProvider.cartCount),
       headerWidgetText: Row(
         children: [
           getHeaderText(text: 'Healthy', fontWeight: FontWeight.bold),

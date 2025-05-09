@@ -1,14 +1,20 @@
 import 'package:example_menu/domain/models/food.dart';
+import 'package:example_menu/presentations/provider/cart_provider.dart';
 import 'package:example_menu/presentations/widgets/food_text.dart';
+import 'package:example_menu/utils/string_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class BuildFoodItem extends StatelessWidget with FoodText {
   final Food food;
+
   const BuildFoodItem({super.key, required this.food});
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = context.watch<CartProvider>();
+
     return InkWell(
       onTap: () {
         print('el click de la imagen de comida ${food.id}');
@@ -18,7 +24,7 @@ class BuildFoodItem extends StatelessWidget with FoodText {
         padding: EdgeInsets.only(top: 8.0),
         child: SizedBox(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Hero(
                 tag: food.imgPath,
@@ -30,11 +36,10 @@ class BuildFoodItem extends StatelessWidget with FoodText {
                 ),
               ),
               SizedBox(width: 20.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [getFoodName(), SizedBox(height: 5.0), getPrice()],
-              ),
-              IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+              getFoodInformation(),
+              IconButton(onPressed: () {
+                cartProvider.addToCart(food.id, 1);
+              }, icon: Icon(Icons.add)),
             ],
           ),
         ),
@@ -42,11 +47,29 @@ class BuildFoodItem extends StatelessWidget with FoodText {
     );
   }
 
+  Expanded getFoodInformation() {
+    return Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      getFoodName(),
+                      SizedBox(height: 5.0),
+                      getPrice(),
+                    ],
+                  ),
+                ],
+              ),
+            );
+  }
+
   Widget getFoodName() {
     return getFoodText(food.foodName, fontWeight: FontWeight.bold);
   }
 
   Widget getPrice() {
-    return getFoodText(food.price, fontSize: 15, colorText: Colors.grey);
+    return getFoodText(formatAsCurrency(food.price), fontSize: 15, colorText: Colors.grey);
   }
 }

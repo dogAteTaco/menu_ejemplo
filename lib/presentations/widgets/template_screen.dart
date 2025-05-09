@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TamplateScreens extends StatelessWidget {
+class TemplateScreen extends StatelessWidget {
   final Widget? headerWidgetText;
   final AppBar header;
   final Color backgroundColor;
   final Widget body;
   final Widget? floatingActionButton;
   final bool isDetailScreen;
-  const TamplateScreens({
+  const TemplateScreen({
     super.key,
     this.headerWidgetText,
     required this.header,

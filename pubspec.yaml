@@ -33,6 +33,7 @@ dependencies:
     sdk: flutter
   flutter_animate: ^4.5.2
   go_router: ^15.0.0
+  intl: ^0.20.2
   provider: ^6.1.4
 
 dev_dependencies:
@@ -51,12 +52,12 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/plate1.png
-    - assets/plate2.png
-    - assets/plate3.png
-    - assets/plate4.png
-    - assets/plate5.png
-    - assets/plate6.png
+    - assets/images/plates/plate1.png
+    - assets/images/plates/plate2.png
+    - assets/images/plates/plate3.png
+    - assets/images/plates/plate4.png
+    - assets/images/plates/plate5.png
+    - assets/images/plates/plate6.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
@@ -81,6 +82,6 @@ flutter:
   fonts:
     - family: Montserrat
       fonts:
-        - asset: assets/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
     # For details regarding fonts from package dependencies,
     # see https://flutter.dev/to/font-from-package

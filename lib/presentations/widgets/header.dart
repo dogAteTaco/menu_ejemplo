@@ -2,25 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 mixin Header {
-  AppBar getHeader({Widget? widgetChildText, BuildContext? context}) {
+  AppBar getHeader({
+    Widget? widgetChildText,
+    BuildContext? context,
+    required int itemCount,
+  }) {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       centerTitle: true,
       title: widgetChildText,
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios),
-        color: Colors.white,
-        onPressed: () {
-          if (context != null) {
-            context.pop();
-          }
-        },
-      ),
+      leading:
+          context != null
+              ? IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                color: Colors.white,
+                onPressed: () {
+                  context.pop();
+                },
+              )
+              : SizedBox.shrink(),
       actions: [
         IconButton(
-          icon: Icon(Icons.shopping_basket),
           color: Colors.white,
+          icon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.shopping_basket, size: 24.0),
+              SizedBox(width: 4.0),
+              Text(
+                itemCount.toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
           onPressed: () {
             print('el click del boton de la cesta');
           },

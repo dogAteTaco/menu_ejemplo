@@ -2,12 +2,13 @@ import 'package:example_menu/domain/models/food.dart';
 import 'package:example_menu/domain/models/info_card.dart';
 
 class Foods {
+  static const String _basePath = 'assets/images/plates';
   static final List<Food> foods = [
     Food(
       id: 1,
-      imgPath: 'assets/plate1.png',
+      imgPath: '$_basePath/plate1.png',
       foodName: 'Salmon bowl',
-      price: '\$24.00',
+      price: 24.00,
       infoCards: [
         InfoCard(carType.WEIGHT, '300', 'G'),
         InfoCard(carType.CALORIES, '367', 'CAL'),
@@ -17,9 +18,9 @@ class Foods {
     ),
     Food(
       id: 2,
-      imgPath: 'assets/plate2.png',
+      imgPath: '$_basePath/plate2.png',
       foodName: 'Spring bowl',
-      price: '\$22.00',
+      price: 22.00,
       infoCards: [
         InfoCard(carType.WEIGHT, '250', 'G'),
         InfoCard(carType.CALORIES, '300', 'CAL'),
@@ -29,9 +30,9 @@ class Foods {
     ),
     Food(
       id: 3,
-      imgPath: 'assets/plate6.png',
+      imgPath: '$_basePath/plate6.png',
       foodName: 'Avocado bowl',
-      price: '\$26.00',
+      price: 26.00,
       infoCards: [
         InfoCard(carType.WEIGHT, '250', 'G'),
         InfoCard(carType.CALORIES, '300', 'CAL'),
@@ -41,9 +42,9 @@ class Foods {
     ),
     Food(
       id: 4,
-      imgPath: 'assets/plate5.png',
+      imgPath: '$_basePath/plate5.png',
       foodName: 'Berry bowl',
-      price: '\$24.00',
+      price: 24.00,
       infoCards: [
         InfoCard(carType.WEIGHT, '300', 'G'),
         InfoCard(carType.CALORIES, '367', 'CAL'),

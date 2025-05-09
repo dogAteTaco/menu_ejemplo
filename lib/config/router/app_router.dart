@@ -1,4 +1,5 @@
 import 'package:example_menu/infrastructure/datasource/foods.dart';
+import 'package:example_menu/presentations/screens/cart_screen.dart';
 import 'package:example_menu/presentations/screens/detail_food.dart';
 import 'package:example_menu/presentations/screens/home_menu_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +9,7 @@ final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(path: '/', builder: (context, state) => HomeMenuScreen()),
+    GoRoute(path: '/cart', builder: (context, state) => CartScreen()),
     GoRoute(
       path: '/detail/:id',
       builder: (context, state) {

@@ -4,7 +4,7 @@ class Food {
   final int id;
   final String imgPath;
   final String foodName;
-  final String price;
+  final double price;
   final List<InfoCard> infoCards;
 
   Food({

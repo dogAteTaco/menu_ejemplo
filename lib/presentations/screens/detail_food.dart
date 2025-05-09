@@ -1,10 +1,12 @@
 import 'package:example_menu/domain/models/food.dart';
+import 'package:example_menu/presentations/provider/cart_provider.dart';
 import 'package:example_menu/presentations/provider/prices_for_quantity.dart';
 import 'package:example_menu/presentations/provider/select_card_provider.dart';
 import 'package:example_menu/presentations/widgets/build_info_card.dart';
 import 'package:example_menu/presentations/widgets/custom_text.dart';
 import 'package:example_menu/presentations/widgets/header.dart';
-import 'package:example_menu/presentations/widgets/tamplate_screens.dart';
+import 'package:example_menu/presentations/widgets/template_screen.dart';
+import 'package:example_menu/utils/string_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +54,7 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
     final foodNameParts = widget.food.foodName.split(' ');
     firstName = foodNameParts[0];
     secondName = foodNameParts.length > 1 ? foodNameParts[1] : '';
-    price = double.parse(widget.food.price.replaceAll('\$', '').trim());
+    price = widget.food.price; 
   }
 
   @override
@@ -66,11 +68,14 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
 
   @override
   Widget build(BuildContext context) {
-    return TamplateScreens(
+    final cartProvider = context.watch<CartProvider>();
+    
+    return TemplateScreen(
       backgroundColor: const Color(0xFF7A9BEE),
       header: getHeader(
         widgetChildText: getHeaderText(text: 'Details', fontSize: 18.0),
         context: context,
+        itemCount: cartProvider.cartCount,
       ),
       isDetailScreen: true,
       body: _buildBody(context),
@@ -151,11 +156,40 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
           _buildInfoCards(),
           const SizedBox(height: 20.0),
           _buildTotalPrice(pricesForQuantity),
+          const SizedBox(height: 20.0),
+          _buildAddButton(pricesForQuantity)
         ],
       ),
     );
   }
 
+  Widget _buildAddButton(PricesForQuantity pricesForQuantity) {
+    final cartProvider = context.watch<CartProvider>();
+
+    return SizedBox(
+      width: double.infinity,
+      child: TextButton(
+        onPressed: () {
+          cartProvider.addToCart(widget.food.id, pricesForQuantity.quantity);
+        },
+        style: TextButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 76, 121, 235),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+        ),
+        child: Text('Agregar a carrito',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.0,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold
+            )),
+      ),
+    );
+
+  }
   /// Construye el nombre del alimento.
   Widget _buildFoodName() {
     return Row(
@@ -173,7 +207,7 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         getBodyText(
-          text: widget.food.price,
+          text: formatAsCurrency(widget.food.price),
           fontSize: 20,
           colorText: Colors.grey,
         ),
@@ -260,18 +294,15 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
   Widget _buildTotalPrice(PricesForQuantity pricesForQuantity) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25.0),
-          color: Colors.black,
-        ),
+      child: SizedBox(
         height: 60.0,
         child: Center(
           child: Text(
-            '\$${pricesForQuantity.getTotalPrice().toStringAsFixed(2)}',
+            ' Subtotal: ${formatAsCurrency(pricesForQuantity.getTotalPrice())}',
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontFamily: 'Montserrat',
+              fontSize: 20.0,
             ),
           ),
         ),

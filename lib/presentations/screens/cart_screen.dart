@@ -45,30 +45,42 @@ class _CartScreenState extends State<CartScreen> with Header, CustomText {
     List<Food> foodList,
   ) {
     return Expanded(
-      child: ListView(
-        primary: false,
-        padding: EdgeInsets.only(left: 25.0, right: 20.0),
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 45.0),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.58,
-              child: ListView.builder(
-                itemCount: cartProvider.cartItems.length,
-                itemBuilder: (context, index) {
-                  int foodIndex = foodList.indexWhere(
-                    (food) => food.id == cartProvider.cartItems[index].id,
-                  );
-                  return BuildCartItem(
-                    food: foodList[foodIndex],
-                    quantity: cartProvider.cartItems[index].quantity,
-                  );
-                },
+      child:
+          cartProvider.cartItems.isNotEmpty
+              ? ListView(
+                primary: false,
+                padding: EdgeInsets.only(left: 25.0, right: 20.0),
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 45.0),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.58,
+                      child: ListView.builder(
+                        itemCount: cartProvider.cartItems.length,
+                        itemBuilder: (context, index) {
+                          int foodIndex = foodList.indexWhere(
+                            (food) =>
+                                food.id == cartProvider.cartItems[index].id,
+                          );
+                          return BuildCartItem(
+                            food: foodList[foodIndex],
+                            quantity: cartProvider.cartItems[index].quantity,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              )
+              : Text(
+                'Your cart is empty',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Montserrat',
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -85,7 +97,7 @@ class _CartScreenState extends State<CartScreen> with Header, CustomText {
               color: Colors.white,
               fontFamily: 'Montserrat',
               fontSize: 20.0,
-              fontWeight: FontWeight.w900
+              fontWeight: FontWeight.w900,
             ),
           ),
         ),

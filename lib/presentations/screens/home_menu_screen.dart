@@ -24,7 +24,7 @@ class _HomeMenuScreenState extends State<HomeMenuScreen>
 
     return TemplateScreen(
       backgroundColor: Color(0xFF21BFBD),
-      header: getHeader(itemCount: cartProvider.cartCount),
+      header: getHeader(context: context,itemCount: cartProvider.cartCount),
       headerWidgetText: Row(
         children: [
           getHeaderText(text: 'Healthy', fontWeight: FontWeight.bold),

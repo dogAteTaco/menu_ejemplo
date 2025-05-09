@@ -179,7 +179,7 @@ class _DetailFoodState extends State<DetailFood> with Header, CustomText {
           ),
           padding: const EdgeInsets.symmetric(vertical: 15.0),
         ),
-        child: Text('Agregar a carrito',
+        child: Text('Add to cart',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18.0,

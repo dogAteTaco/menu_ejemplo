@@ -13,7 +13,7 @@ mixin Header {
       centerTitle: true,
       title: widgetChildText,
       leading:
-          context != null
+          (context != null && Navigator.canPop(context))
               ? IconButton(
                 icon: Icon(Icons.arrow_back_ios),
                 color: Colors.white,
@@ -22,6 +22,7 @@ mixin Header {
                 },
               )
               : SizedBox.shrink(),
+
       actions: [
         IconButton(
           color: Colors.white,
@@ -41,7 +42,9 @@ mixin Header {
             ],
           ),
           onPressed: () {
-            print('el click del boton de la cesta');
+            context != null
+                ? context.push('/cart')
+                : Navigator.of(context!).pushNamed('/cart');
           },
         ),
       ],

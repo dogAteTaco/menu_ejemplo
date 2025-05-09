@@ -178,9 +178,7 @@ class _HomeMenuScreenState extends State<HomeMenuScreen>
 
   // Cierra el widget de busqueda
   void _closeSearch() {
-    setState(() {
-      isSearchActive = false;
-    });
+    _resetSearch();
   }
 
   // Cambia el estado de busqueda
